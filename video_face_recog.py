@@ -6,19 +6,15 @@ from datetime import datetime
 
 
 class face_recog:
-    def __init__(self, path, video_file, names, wanted_names):
+    def __init__(self, path, wanted_names):
         self.path = path
         self.images = []
         self.names_list = []
-        self.video_file = video_file
         self.people = glob(path + '/*.jpg')
-        self.blurred = set()
         self.wanted = {}
         self.check_wanted = {}
         for name in wanted_names:
             self.wanted[name.upper()] = 0
-        for name in names:
-            self.blurred.add(name.upper())
 
     def find_face_encodings(self):
         encodings_list = []
@@ -39,15 +35,12 @@ class face_recog:
         encode_known = self.find_face_encodings()
         print('Encoding Complete')
 
-        self.video_capture(encode_known, self.video_file)
+        self.video_capture(encode_known)
 
-    def video_capture(self, encode_known, video_file):
-        if video_file:
-            cap = cv2.VideoCapture(video_file)
-        else:
-            cap = cv2.VideoCapture(0)
-            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    def video_capture(self, encode_known):
+        cap = cv2.VideoCapture(0)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
         while True:
             success, img = cap.read()
@@ -69,7 +62,7 @@ class face_recog:
                 if name in self.wanted and not self.wanted[name]:
                     cv2.imwrite(name+'.jpg', cv2.resize(img, (0,0), None, 0.5, 0.5))
                     now = datetime.now()
-                    date_string = now.strftime('%B/%A/%H:%M:%S')
+                    date_string = now.strftime('%Y-%m-%d %H:%M:%S')
                     self.check_wanted[name] = date_string
                     self.wanted[name] = 1
 
@@ -80,7 +73,10 @@ class face_recog:
                 cv2.imshow('img', img)
                 cv2.waitKey(1)
 
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            now = datetime.now()
+#             if cv2.waitKey(1) & 0xFF == ord('q'):
+#                 break
+            if now.strftime('%M') == '00':
                 break
 
         cv2.destroyAllWindows()

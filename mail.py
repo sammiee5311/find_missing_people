@@ -53,7 +53,7 @@ class Inform:
         port = 587
         send = Email_sender(host, port)
 
-        subject = 'Hello'
+        subject = name
         template = Template("""<html>
                                     <head>Found it !!</head>
                                     <body>

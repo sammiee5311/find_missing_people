@@ -21,11 +21,11 @@ class From_server:
         print('read csv completed')
 
     def download_images(self, download_path='./Images/'):
-        wrapper = csv.reader(self.file_link.text.strip().split('\n'))
-        for record in wrapper:
-            if record[1] != 'images':
-                self.names.append(str(record[0]))
-                self.images.append(str(record[1]))
+        csv_file = csv.reader(self.file_link.text.strip().split('\n'))
+        for rows in csv_file:
+            if rows[1] != 'images':
+                self.names.append(str(rows[0]))
+                self.images.append(str(rows[1]))
 
         for i, image in enumerate(self.images):
             urlretrieve(image, download_path + self.names[i] + '.jpg')

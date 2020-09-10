@@ -11,6 +11,7 @@ If it finds a person, a picture of the person and time automatically will be sen
 + cmake
 + dlib
 + face-recognition
++ smtplib
 + BeautifulSoup
 + urllib
 + requests

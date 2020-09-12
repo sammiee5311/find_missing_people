@@ -1,4 +1,4 @@
-# self_inform ( In Progress)
+# self_inform (In Progress)
 If it finds a person through camera, a picture of the person and time automatically will be sent to personal e-mail(gmail).
 
 ## How to use

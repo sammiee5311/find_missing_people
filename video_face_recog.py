@@ -76,7 +76,7 @@ class face_recog:
             now = datetime.now()
 #             if cv2.waitKey(1) & 0xFF == ord('q'):
 #                 break
-            if now.strftime('%M') == '00':
+            if now.strftime('%M')=='00':
                 break
 
         cv2.destroyAllWindows()

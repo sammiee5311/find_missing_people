@@ -1,5 +1,6 @@
 # self_inform (In Progress)
-If it finds a person through camera, a picture of the person and time automatically will be sent to personal e-mail(gmail).
+It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
+It detects faces which are on the server. <br>
 
 ## How to use
 + Change to your email and password 'self.server.login('email', 'password')' on mail.py(42 line)

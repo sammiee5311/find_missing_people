@@ -26,3 +26,4 @@ Once the person who is in the list is appeared, that person is taken a picture a
 
 ### Refrence
 + https://github.com/ageitgey/face_recognition
++ https://youtu.be/sz25xxF_AVE

@@ -1,11 +1,14 @@
-# self_inform (version 0.5)
+# Self_inform (version 0.5)
 It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
 It detects faces which are on the server. <br>
 
-## the idea behind 
+## The idea behind 
 A number of people are missing or criminal nowdays so it is hard to find many people due to a small workforce. <br>
 However, if everyone who has a self-driving car can help to find people. <br>
 The camera which is attached on the car will look faces during people driving so that it will be easier to find people.
+
+## test
+![gif will be uploaded soon](https://github.com/sammiee5311/self_inform/edit/master/README.md)
 
 ## How to use
 + Change to your email and password 'self.server.login('email', 'password')' on mail.py(42 line)

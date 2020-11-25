@@ -1,6 +1,6 @@
 # Self_inform (version 0.5)
-It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
-It detects faces which are on the server. <br>
++ It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
++ It detects faces which are on the server. <br>
 
 ## The idea behind 
 + A number of people are missing or criminal nowdays so it is hard to find many people due to a small workforce. <br>

@@ -8,7 +8,10 @@ However, everyone who has a self-driving car can help to find people. <br>
 The camera which is attached on the car will look faces during people driving so that it will be easier to find people.
 
 ## test
-![gif will be uploaded soon](https://github.com/sammiee5311/self_inform/edit/master/README.md)
+![](./Images/test.gif)
+
+I've combined with my self-driving car which I made with a raspberry-pi before. <br>
+[self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car)
 
 ## How to use
 + Change to your email and password 'self.server.login('email', 'password')' on mail.py(42 line)

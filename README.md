@@ -2,8 +2,8 @@
 + It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
 + It detects faces which are on the server. <br>
 
-## The idea behind 
-+ A number of people are missing or criminal nowdays so it is hard to find many people due to a small workforce. <br>
+## The motivation
++ A number of people are criminal activities nowdays so it is hard to find many people due to a small workforce. <br>
 + However, everyone who has a self-driving car can help to find people. <br>
 + The camera which is attached on the car will look faces during people driving so that it will be easier to find people.
 

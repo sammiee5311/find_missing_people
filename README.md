@@ -36,4 +36,4 @@
 
 ### Refrence
 + https://github.com/ageitgey/face_recognition
-+ https://youtu.be/sz25xxF_AVE
++ https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78

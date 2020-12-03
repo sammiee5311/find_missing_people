@@ -10,7 +10,7 @@
 ## test
 ![](./Images/test.gif)
 
-+ I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car)r. <br>
++ I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car). <br>
 
 ## How to use
 + Change to your email and password 'self.server.login('email', 'password')' on mail.py(42 line)

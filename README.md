@@ -10,7 +10,7 @@
 ## test
 ![](./Images/test.gif)
 
-+ I've combined with my self-driving car which I made with a raspberry-pi before. <br>
++ I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a self-driving car. <br>
 + [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car)
 
 ## How to use

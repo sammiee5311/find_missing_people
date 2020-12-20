@@ -7,7 +7,7 @@
 + However, everyone who has a self-driving car can help to find people. <br>
 + The camera which is attached on the car will look faces during people driving so that it will be easier to find people.
 
-## test
+## Test
 ![](./Images/test.gif)
 
 + I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car). <br>

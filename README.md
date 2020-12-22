@@ -3,7 +3,7 @@
 + It detects faces which are on the server. <br>
 
 ## The motivation
-+ A number of people are criminal activities nowadays so it is hard to find many people due to a small workforce. <br>
++ There are a number of criminal activities nowadays, I wanted to make a program that makes finding people easier. <br>
 + However, everyone who has a self-driving car can help to find people. <br>
 + The camera which is attached on the car will look faces during people driving so that it will be easier to find people.
 

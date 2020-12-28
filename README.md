@@ -13,6 +13,7 @@
 + I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car). <br>
 
 ## How to use
+https://github.com/sammiee5311/self_inform/blob/41bb73744aee67f02bb74c691e6c67ce32c3296d/mail.py#L42
 + Change to your email and password 'self.server.login('email', 'password')' on mail.py(42 line)
 + Change to from_email and to_email 'email_from = 'from_email'' 'email_to = ['to_email']' on mail.py(69,70 lines)
 + Change to image path and names that you want to find 'video_face_recog = video_face_recog.face_recog('./Images path', wanted_names=['name'])' on main.py(9 line)

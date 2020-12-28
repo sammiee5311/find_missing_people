@@ -1,4 +1,4 @@
-# Self_inform (version 0.5)
+# Self_inform (version 1.0)
 + It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
 + It detects faces which are on the server. <br>
 
@@ -13,10 +13,44 @@
 + I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car). <br>
 
 ## How to use
-https://github.com/sammiee5311/self_inform/blob/41bb73744aee67f02bb74c691e6c67ce32c3296d/mail.py#L42
-+ Change to your email and password 'self.server.login('email', 'password')' on mail.py(42 line)
-+ Change to from_email and to_email 'email_from = 'from_email'' 'email_to = ['to_email']' on mail.py(69,70 lines)
-+ Change to image path and names that you want to find 'video_face_recog = video_face_recog.face_recog('./Images path', wanted_names=['name'])' on main.py(9 line)
++ Change to your email and password ![code](https://github.com/sammiee5311/self_inform/blob/41bb73744aee67f02bb74c691e6c67ce32c3296d/mail.py#L42)
+```python
+self.server.login('email', 'password') (42 line on mail.py)
+
+# example
+self.server.login('abcd@gmail.com', 'abcd'
+```
+
++ Change to from_email and to_email ![code](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/mail.py#L69)
+```python
+email_from = 'from_email' (69,70 lines on mail.py)
+email_to = ['to_email']
+
+# example
+email_from = 'abcd@gmail.com'
+email_to = 'efgh@gmail.com'
+```
+
++ Write csv_file link ![code](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/main.py#L12)
+``` python
+serve.read_csv() (12 line on main.py)
+
+# example
+serve.read_csv('https://sammiee5311.github.io/test/') 
+```
+
++ Write path where you want to download images ![code](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/main.py#L13)
+``` python
+wanted_names = serve.download_images() (13 line on main.py)
+
+# example
+wanted_names = serve.download_images('./Images')
+````
+
++ Change to image path and names that you want to find ![code](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/main.py#L15)
+``` python
+video_face_recog = video_face_recog.face_recog('./Images', wanted_names=wanted_names) (15 line on main.py)
+```
 
 ## How it works
 + Dowload the csv file which includes people names and pictures from website(or server). <br>

@@ -8,8 +8,8 @@ import server
 
 inform = Inform()
 
-serve = server.From_server() # write url
-serve.read_csv()
+serve = server.From_server()
+serve.read_csv() # write url
 wanted_names = serve.download_images() # write path where you want to download images
 
 video_face_recog = video_face_recog.face_recog('./Images', wanted_names=wanted_names)

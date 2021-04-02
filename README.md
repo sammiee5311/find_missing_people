@@ -1,4 +1,4 @@
-# Self_inform (version 1.0)
+# Find_missing_people (version 1.0)
 + It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
 + It detects faces which are on the server. <br>
 

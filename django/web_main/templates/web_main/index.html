@@ -1,0 +1,53 @@
+{% extends 'web_main/common/header.html' %}
+{% load static %}
+{% block main %}
+
+
+<html lang="en">
+  <body>
+
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron">
+				<h2>
+					Help finding missing people !
+				</h2>
+				<p>
+					This is just a project webpage. This is not real.
+				</p>
+				<p>
+					<a class="btn btn-primary btn-large" href="#">Learn more</a>
+				</p>
+			</div>
+			<div class="row">
+				{% for list in missing_people %}
+				<div class="col-md-4">
+					<div class="card">
+						<img class="card-img-top" alt="Bootstrap Thumbnail First" src={{list.image_url}}>
+						<div class="card-block">
+							<h5 class="card-title">
+								{{list.name}}
+							</h5>
+							<p class="card-text">
+								{{list.email}}
+							</p>
+							<p>
+								<a class="btn btn-primary" href="{% url 'web_main:web_main_detail' pk=list.id %}">check</a>
+							</p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
+
+{% endblock main %}

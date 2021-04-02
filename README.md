@@ -69,6 +69,9 @@ video_face_recog = video_face_recog.face_recog('./Images', wanted_names=wanted_n
 + urllib
 + requests
 
+## Todo
+- [ ] Use Django
+
 ### Refrence
 + https://github.com/ageitgey/face_recognition
 + https://medium.com/@ageitgey/machine-learning-is-fun-part-4-modern-face-recognition-with-deep-learning-c3cffc121d78

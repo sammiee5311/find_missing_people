@@ -1,0 +1,15 @@
+{% extends 'web_main/common/header.html' %}
+{% load static %}
+{% block main %}
+<section id="blog">
+    <div class="container">
+        {{ missing_people }}
+        <h2> {{ missing_people.name }}</h2>
+        <h2> {{ missing_people.email  }}</h2>
+        <img src={{missing_people.image_url}}>
+
+    </div>
+</section>
+
+
+{% endblock main %}

@@ -13,7 +13,7 @@
 + I've just combined with my self-driving car which I made with a raspberry-pi to show how would be worked with a [self-driving car](https://github.com/sammiee5311/raspberry_pi/tree/master/self_driving_car). <br>
 
 ## How to use
-+ Change to your email and password [(code)](https://github.com/sammiee5311/self_inform/blob/41bb73744aee67f02bb74c691e6c67ce32c3296d/mail.py#L42)
++ Change to your `email` and `password` [(code)](https://github.com/sammiee5311/self_inform/blob/41bb73744aee67f02bb74c691e6c67ce32c3296d/mail.py#L42)
 ```python
 self.server.login('email', 'password') (42 line on mail.py)
 
@@ -21,7 +21,7 @@ self.server.login('email', 'password') (42 line on mail.py)
 self.server.login('abcd@gmail.com', 'abcd'
 ```
 
-+ Change to from_email and to_email [(code)](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/mail.py#L69)
++ Change to `from_email` and `to_email` [(code)](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/mail.py#L69)
 ```python
 email_from = 'from_email' (69,70 lines on mail.py)
 email_to = ['to_email']
@@ -31,7 +31,7 @@ email_from = 'abcd@gmail.com'
 email_to = 'efgh@gmail.com'
 ```
 
-+ Write csv_file link [(code)](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/main.py#L12)
++ Write `csv_file` link [(code)](https://github.com/sammiee5311/self_inform/blob/e118cf4923e131d78759ce730d6ffd87813a4a17/main.py#L12)
 ``` python
 serve.read_csv() (12 line on main.py)
 

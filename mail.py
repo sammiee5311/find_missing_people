@@ -55,7 +55,7 @@ class Inform:
 
         subject = name
         template = Template("""<html>
-                                    <head>Found it !!</head>
+                                    <head>Found missing person !!</head>
                                     <body>
                                         <img src='cid:inform'><br>
                                         This is a photo of ${NAME} at ${TIME}.<br>

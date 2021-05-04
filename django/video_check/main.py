@@ -1,11 +1,17 @@
 import psycopg2
 from config import Config
+from typing import Dict
+
+
+############################################
+from detect_missing_people import FaceRecog
+############################################
 
 class VideoCheck:
-    def __init__(self):
+    def __init__(self) -> None:
         self.conn = self.connect()
 
-    def connect(self):
+    def connect(self) -> object:
         conn = None
         try:
             params = Config()
@@ -30,12 +36,16 @@ class VideoCheck:
             if conn is not None:
                 print('Database connected successfully.')
     
-    def fetch_all_missing_people_data(self):
+    def disconnect(self) -> None:
+        self.conn.close()
+    
+    def fetch_all_missing_people_data(self) -> Dict[str, tuple]:
         cur = self.conn.cursor()
         cur.execute("SELECT * from listings_listing")
         records = cur.fetchall()
 
         missing_people = {}
+        missing_people_state = {}
 
         for record in records:
             _id = record[0]
@@ -47,13 +57,20 @@ class VideoCheck:
             if is_found:
                 continue
 
-            missing_people[_id] = (name, image_path, requestor_id)
+            missing_people[_id] = (name, '../media/'+image_path, requestor_id)
+            missing_people_state[_id] = is_found
 
-        return missing_people
+        return missing_people, missing_people_state
 
 
 if __name__ == '__main__':
     video_check = VideoCheck()
-    missing_people_data = video_check.fetch_all_missing_people_data()
-    print(missing_people_data)
-    video_check.conn.close()
+    
+    missing_people_data, missing_people_state = video_check.fetch_all_missing_people_data()
+
+    face = FaceRecog(missing_people_state)
+
+    missing_people_images_from_videos = face.start_face_recog(missing_people_data)
+
+    video_check.disconnect()
+

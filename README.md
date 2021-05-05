@@ -1,6 +1,5 @@
-# Find_missing_people (version 1.0)
-+ It is a program which is automatically informing wanted people if the camera is pointing their faces. <br>
-+ It detects faces which are on the server. <br>
+# Find_missing_people
++ It is a program which is automatically finding missing people through the camera(ex. self-driving car). <br>
 
 ## The motivation
 + There are a number of criminal activities nowadays, I wanted to make a program that makes finding people easier. <br>

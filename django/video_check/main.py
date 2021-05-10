@@ -1,4 +1,6 @@
 import psycopg2
+import cv2
+import os
 from config import Config
 from typing import Dict
 
@@ -6,6 +8,8 @@ from typing import Dict
 ############################################
 from detect_missing_people import FaceRecog
 ############################################
+
+PATH = '../media/'
 
 class VideoCheck:
     def __init__(self) -> None:
@@ -40,6 +44,7 @@ class VideoCheck:
         self.conn.close()
     
     def fetch_all_missing_people_data(self) -> Dict[str, tuple]:
+        global PATH
         cur = self.conn.cursor()
         cur.execute("SELECT * from listings_listing")
         records = cur.fetchall()
@@ -57,10 +62,21 @@ class VideoCheck:
             if is_found:
                 continue
 
-            missing_people[_id] = (name, '../media/'+image_path, requestor_id)
+            missing_people[_id] = (name, PATH + image_path, requestor_id)
             missing_people_state[_id] = is_found
 
         return missing_people, missing_people_state
+
+
+def save_images(images: Dict[int, tuple] ) -> None:
+    global PATH
+    PATH += '/taken_photos/'
+    for _id, images_info in images.items():
+        for image, date in images_info:
+            date = PATH + date[:10] + '/'
+            os.makedirs(date, exist_ok=True)
+            print(date + str(_id) + '.jpg')
+            cv2.imwrite(date + str(_id) + '.jpg', image)    
 
 
 if __name__ == '__main__':
@@ -70,7 +86,9 @@ if __name__ == '__main__':
 
     face = FaceRecog(missing_people_state)
 
-    missing_people_images_from_videos = face.start_face_recog(missing_people_data)
+    missing_people_images_from_videos = face.start_face_recog(missing_people_data, show=False)
+    print(missing_people_data, missing_people_state, missing_people_images_from_videos)
+    save_images(missing_people_images_from_videos)
 
     video_check.disconnect()
 

@@ -22,7 +22,7 @@ class FaceRecog:
 
         return encodings_list
 
-    def start_face_recog(self, missing_people: Dict[str, tuple]) -> Dict[int, tuple]:
+    def start_face_recog(self, missing_people: Dict[str, tuple], show: bool = True) -> Dict[int, tuple]:
         for person_id, person_info in missing_people.items():
             person_image = cv2.imread(person_info[1])
             self.missing_people_images.append(person_image)
@@ -31,10 +31,17 @@ class FaceRecog:
         encode_known = self.find_face_encodings()
         print('Encoding Complete')
 
-        return self.video_capture(encode_known)
+        return self.video_capture(encode_known, show)
     
-    def video_capture(self, encode_known: List[str]) -> None:
-        cap = cv2.VideoCapture(0)
+    def check_time_difference(self, current_time, previous_taken_time):
+        if len(previous_taken_time) == 0:
+            return True 
+        elif abs(int(previous_taken_time[-1][-1][14:16]) - int(current_time[14:16])) < 1:
+            return False
+        else: return True
+
+    def video_capture(self, encode_known: List[str], show: bool) -> None:
+        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
@@ -53,23 +60,21 @@ class FaceRecog:
 
                 missing_person_id = self.missing_people_ids[matched_idx]
 
-                top, right, bottom, left = location
-                top, right, bottom, left = 4 * top, 4 * right, 4 * bottom, 4 * left
-
                 now = datetime.now()
-                date_string = now.strftime('%Y-%m-%d %H:%M:%S')
-                self.missing_people_images_from_videos[missing_person_id].append(cv2.resize(img, (0,0), None, 0.5, 0.5), date_string)
+                date_string = now.strftime('%Y/%m/%d %H:%M:%S')
 
-                '''
-                cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 2)
-                cv2.rectangle(img, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
-                cv2.putText(img, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
-                '''
-
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
-
-                cv2.imshow('img', img)
-                cv2.waitKey(1)
+                if self.check_time_difference(date_string, self.missing_people_images_from_videos[missing_person_id]):
+                    self.missing_people_images_from_videos[missing_person_id].append((cv2.resize(img, (0,0), None, 0.5, 0.5), date_string))
+                
+                if show:
+                    top, right, bottom, left = location
+                    top, right, bottom, left = 4 * top, 4 * right, 4 * bottom, 4 * left
+                    cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 2)
+                    cv2.imshow('img', img)
+                
+            if cv2.waitKey(1) & 0xFF == ord('q') or len(self.missing_people_images_from_videos[5]) == 1:
+                break
 
         cv2.destroyAllWindows()
+
+        return self.missing_people_images_from_videos

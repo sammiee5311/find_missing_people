@@ -99,3 +99,8 @@ img {
   height: 500px;
   width: 100%;
 }
+
+.btn-answer{
+  width:80px;
+  float: right;
+}

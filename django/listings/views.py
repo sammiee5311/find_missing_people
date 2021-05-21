@@ -4,11 +4,11 @@ from .choices import sex_choices, state_choices, start_year_choices, end_year_ch
 
 import datetime
 
-from .models import Listing
+from .models import MissingPeople
 
 
 def index(request):
-    listings = Listing.objects.order_by('-list_date').filter(is_private=False, is_found=False)
+    listings = MissingPeople.objects.order_by('-list_date').filter(is_private=False, is_found=False, is_accepted=True)
 
     paginator = Paginator(listings, 3)
     page = request.GET.get('page')
@@ -21,8 +21,7 @@ def index(request):
     return render(request, 'listings/listings.html', context)
 
 def listing(request, listing_id):
-    listing = get_object_or_404(Listing, pk=listing_id)
-
+    listing = get_object_or_404(MissingPeople, pk=listing_id)
     context = {
         'listing': listing
     }
@@ -30,7 +29,7 @@ def listing(request, listing_id):
     return render(request, 'listings/listing.html', context)
 
 def search(request):
-    query_list = Listing.objects.order_by('-list_date')
+    query_list = MissingPeople.objects.order_by('-list_date').filter(is_accepted=True)
     start_year = datetime.date(int(2000), 1, 1)
     end_year = datetime.datetime.now()
 

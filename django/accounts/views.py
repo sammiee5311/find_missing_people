@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from contacts.models import Contact
-from listings.models import Listing
+from listings.models import MissingPeople
 from .models import ImagesFromVideo
 
 from collections import defaultdict
@@ -61,21 +61,21 @@ def dashboard(request):
     if request.method == 'POST':
         if 'correct' in request.POST:
             missing_person_id, image_id = request.POST['correct'].split(',')
-            request_info = Listing.objects.get(id=missing_person_id)
+            request_info = MissingPeople.objects.get(id=missing_person_id)
             request_info.is_found = True
             request_info.save()
 
         elif 'wrong' in request.POST:
             missing_person_id, image_id = request.POST['wrong'].split(',')
 
-        filtered_image = ImagesFromVideo.objects.order_by('-date').filter(user_id=request.user.id).filter(missing_person_id=missing_person_id).get(id=image_id)
+        filtered_image = ImagesFromVideo.objects.order_by('-date').filter(user_id=request.user.id, missing_person_id=missing_person_id).get(id=image_id)
         filtered_image.delete()
 
     user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
-    user_requests = Listing.objects.order_by('-list_date').filter(user_id=request.user.id)
+    user_requests = MissingPeople.objects.order_by('-list_date').filter(user_id=request.user.id, is_accepted=True)
     user_taken_images = ImagesFromVideo.objects.order_by('-date').filter(user_id=request.user.id)
     image_dictionary = defaultdict(list)
-        
+    
     for image in user_taken_images:
         _id, missing_person_id, image_url = image.id, image.missing_person_id, image.photo.url
         image_dictionary[missing_person_id].append((image_url, _id))

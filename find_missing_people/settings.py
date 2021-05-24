@@ -34,7 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
-    'listings.apps.ListingsConfig',
+    'listings.apps.MissingPeopleConfig',
     'requestors.apps.RequestorsConfig',
     'accounts.apps.AccountsConfig',
     'videos.apps.VideosConfig',
@@ -88,8 +88,8 @@ WSGI_APPLICATION = 'find_missing_people.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
+        'NAME': 'findmissingpeople',
+        'USER': 'postgres',
         'PASSWORD': '',
         'HOST': ''
     }

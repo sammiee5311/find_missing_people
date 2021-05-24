@@ -1,0 +1,70 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block title %} | Map {% endblock %}
+
+{% block content %}
+
+  <section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Map</h1>
+          <p class="lead">Check Missing People!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Map</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="py-4">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h2>Missing People Map</h2>
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="text" name="city" class="form-control" placeholder="City" value="{{ values.city }}">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">State</label>
+                <select name="state" class="form-control">
+                  <option selected="true" disabled="disabled">State (All)</option>
+                  {% for abbrev, state in state_choices.items %}
+                    <option value="{{ abbrev }}" {% if abbrev == values.state %} selected {% endif %} > {{ state }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            <button class="btn btn-secondary col-md-4 mb-3" name="city" onclick="searchMissingPeople('{{listing}}', this)">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="map"></div>
+  </section>
+
+  <section id="help" class="bg-dark text-white text-center">
+    <h2 class="display-4">How To Help</h2>
+    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
+    <hr>
+    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">View Missing People</a>
+  </section>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCosvd-S-qpiX5eZM95hPBswc7W2ZTl9c0&callback=initMap"></script>
+  <script src="{% static 'js/map.js' %}"></script>
+{% endblock %}

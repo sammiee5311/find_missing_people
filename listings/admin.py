@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import MissingPeople
 
+
 class MissingPeopleAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'is_found', 'missing_date')
     list_display_links = ('id', 'name')

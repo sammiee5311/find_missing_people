@@ -1,0 +1,81 @@
+{% extends 'base.html' %} 
+
+{% load humanize %}
+
+{% block title %} | Welcome {% endblock %}
+
+{% block content %}
+
+<section id="request" class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h4>
+                <i class="fas fa-check"></i> Request</h4>
+            </div>
+            <div class="card-body">
+                {% include 'partials/_alerts.html' %}
+                <form action="{% url 'request' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" name="image">
+                    </div>
+                    <div class="form-group">
+                        <label for="sex">sex</label>
+                        <select name="sex" class="form-control" required>
+                        <option selected="true" disabled="disabled">Sex</option>
+                        {% for letter, sex in sex_choices.items %}
+                            <option value="{{ letter }}"> {{ sex }} </option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" name="age" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" name="city" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select name="state" class="form-control" required>
+                        <option selected="true" disabled="disabled">State (All)</option>
+                        {% for abbrev, state in state_choices.items %}
+                            <option value="{{ abbrev }}"> {{ state }} </option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" name="address" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Missing Date</label>
+                        <input type="date" name="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Other Description</label>
+                        <input type="text" name="description" class="form-control" value="None" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Private</label>
+                        <input type="checkbox" name="private" required>
+                    </div>
+                    <input type="submit" value="Request" class="btn btn-secondary btn-block">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endblock %}

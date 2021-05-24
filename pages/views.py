@@ -10,10 +10,12 @@ from listings.models import MissingPeople
 from requestors.models import Requestor
 from django.contrib.auth.models import User
 
-import json
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent="find_missing_people")
 
 def index(request):
-    listings = MissingPeople.objects.order_by('-list_date').filter(is_found=False, is_private=False)[:3]
+    listings = MissingPeople.objects.order_by('-list_date').filter(is_found=False, is_private=False, is_accepted=True)[:3]
 
     context = {
         'listings': listings,
@@ -53,6 +55,8 @@ def map(request):
     return render(request, 'pages/map.html', context)
 
 def request(request):
+    global geolocator
+
     if request.method == 'POST':
         request_info = request.POST
         name = request_info['name']
@@ -62,17 +66,19 @@ def request(request):
         image = request.FILES['image']
         state = request_info['state'] if 'state' in request_info else None
         address = request_info['address']
-        longitude = request_info['longitude']
-        latitude = request_info['latitude']
+        is_private = True if request_info['private'] else False
         date = request_info['date']
         list_date = datetime.today().strftime('%Y-%m-%d')
         description = request_info['description']
+
+        location = geolocator.geocode(address)
+        longitude, latitude = round(location.longitude,3), round(location.latitude,3)
 
         if not sex or not state:
             messages.error(request, 'You should Choose Sex and State both.')
         else:
             MissingPeople.objects.create(name=name, address=address, 
-            city=city, state=state, sex=sex, age=age, photo_main=image, description=description, lng=longitude, lat=latitude, is_private=False, is_found=False,
+            city=city, state=state, sex=sex, age=age, photo_main=image, description=description, lng=longitude, lat=latitude, is_private=is_private, is_found=False,
             missing_date=date, list_date=list_date, is_accepted=False, user=request.user)
             messages.success(request, 'Reqeust Successfully')
 

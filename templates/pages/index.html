@@ -1,0 +1,143 @@
+{% extends 'base.html' %} 
+
+{% load humanize %}
+
+{% block title %} | Welcome {% endblock %}
+
+{% block content %}
+
+<section id="showcase">
+  <div class="container text-center">
+    <div class="home-search p-5">
+      <div class="overlay p-5">
+        <h1 class="display-4 mb-4">
+          Help Finding Missing People !
+        </h1>
+        <p class="lead">You can search by location, year and sex (This is just a project website)</p>
+        <div class="search">
+          <form action="{% url 'search' %}">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="text" name="city" class="form-control" placeholder="City">
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">State</label>
+                <select name="state" class="form-control">
+                  <option selected="true" disabled="disabled">State (All)</option>
+                  {% for abbrev, state in state_choices.items %}
+                    <option value="{{ abbrev }}"> {{ state }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">sex</label>
+                <select name="sex" class="form-control">
+                  <option selected="true" disabled="disabled">Sex</option>
+                  {% for letter, sex in sex_choices.items %}
+                    <option value="{{ letter }}"> {{ sex }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="sr-only">start_year</label>
+                <select name="start_year" class="form-control">
+                  <option selected="true" disabled="disabled">start_year</option>
+                  {% for start_year_key, start_year_val in start_year_choices.items %}
+                    <option value="{{ start_year_key }}"> {{ start_year_val }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="sr-only">end_year</label>
+                <select name="end_year" class="form-control">
+                  <option selected="true" disabled="disabled">end_year</option>
+                  {% for end_year_key, end_year_val in end_year_choices.items %}
+                    <option value="{{ end_year_key }}"> {{ end_year_val }} </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include 'partials/_alerts.html' %}
+
+<section id="listings" class="py-5">
+  <div class="container">
+    <h3 class="text-center mb-3">New Missing People</h3>
+    <div class="row">
+
+      {% if listings %}
+        {% for listing in listings %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card listing-preview">
+              <img class="card-img-top" src="{{listing.photo_main.url}}" alt="">
+              <div class="card-img-overlay">
+              </div>
+              <div class="card-body">
+                <div class="listing-heading text-center">
+                  <h4 class="text-primary">{{ listing.name }}</h4>
+                  <p>
+                    <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }}, {{ listing.state }}</p>
+                </div>
+                <div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    <i class="fas fa-user"></i> {{ listing.user }}</div>
+                </div>
+                <div class="row text-secondary pb-2">
+                  <div class="col-6">
+                    <i class="fas fa-clock"></i> {{ listing.list_date }}</div>
+                </div>
+                <hr>
+                <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-md-12">
+          <p>No Missing People</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section id="services" class="py-5 bg-secondary text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <i class="fas fa-file-video fa-4x mr-4"></i>
+        <hr>
+        <h3>Automatic Searching People On Videos</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+          hic dignissimos ratione ea quae.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="fas fa-images fa-4x mr-4"></i>
+        <hr>
+        <h3>People on the images are not real people.</h3>
+        <p>All Images are from <a href="https://www.thispersondoesnotexist.com/">thispersondoesnotexist</a></p>
+      </div>
+      <div class="col-md-4">
+        <i class="fas fa-heart fa-4x mr-4"></i>
+        <hr>
+        <h3>Requesting & Help Finding</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
+          hic dignissimos ratione ea quae.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

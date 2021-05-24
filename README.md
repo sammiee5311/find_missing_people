@@ -1,5 +1,6 @@
 # Find_missing_people
 + It is a program which is automatically finding missing people through the camera(ex. self-driving car). <br>
++ [detail](https://sammiee5311.github.io/project/Find-Missing-People/)
 
 ## The motivation
 + There are a number of criminal activities nowadays, I wanted to make a program that makes finding people easier. <br>

@@ -3,16 +3,16 @@ import numpy as np
 import face_recognition
 from glob import glob
 from datetime import datetime
-from typing import List, Dict
+from typing import List, Dict, Any, Tuple
 from collections import defaultdict
 
 
 class FaceRecog:
     def __init__(self, missing_people_state: Dict[str, bool]) -> None:
-        self.missing_people_images = []
+        self.missing_people_images: List[Any] = []
         self.missing_people_state = missing_people_state
-        self.missing_people_ids = []
-        self.missing_people_images_from_videos = defaultdict(list)
+        self.missing_people_ids: List[int] = []
+        self.missing_people_images_from_videos: Dict[int, List[Tuple[Any, ...]]] = defaultdict(list)
 
     def find_face_encodings(self) -> List[str]:
         encodings_list = []
@@ -22,7 +22,7 @@ class FaceRecog:
 
         return encodings_list
 
-    def start_face_recog(self, missing_people: Dict[str, tuple], show: bool = True) -> Dict[int, tuple]:
+    def start_face_recog(self, missing_people: Dict[int, Tuple[str, str, int]], show: bool = True) -> Dict[int, List[Tuple[Any, ...]]]:
         for person_id, person_info in missing_people.items():
             person_image = cv2.imread(person_info[1])
             self.missing_people_images.append(person_image)
@@ -40,7 +40,7 @@ class FaceRecog:
             return False
         else: return True
 
-    def video_capture(self, encode_known: List[str], show: bool) -> None:
+    def video_capture(self, encode_known: List[str], show: bool) -> Dict[int, List[Tuple[Any, ...]]]:
         cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)

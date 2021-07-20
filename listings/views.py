@@ -1,13 +1,14 @@
-from django.shortcuts import get_object_or_404, render
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from .choices import sex_choices, state_choices, start_year_choices, end_year_choices
-
 import datetime
 
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.shortcuts import get_object_or_404, render
+
+from .choices import (end_year_choices, sex_choices, start_year_choices,
+                      state_choices)
 from .models import MissingPeople
 
 
-def index(request):
+def listings_all(request):
     listings = MissingPeople.objects.order_by('-list_date').filter(is_private=False, is_found=False, is_accepted=True)
 
     paginator = Paginator(listings, 3)
@@ -20,7 +21,7 @@ def index(request):
 
     return render(request, 'listings/listings.html', context)
 
-def listing(request, listing_id):
+def detail(request, listing_id):
     listing = get_object_or_404(MissingPeople, pk=listing_id)
     context = {
         'listing': listing
@@ -37,7 +38,7 @@ def search(request):
         city = request.GET['city']
         if city:
             query_list = query_list.filter(city__iexact=city)
-    
+
     if 'state' in request.GET:
         state = request.GET['state']
         if state:

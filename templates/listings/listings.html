@@ -4,7 +4,6 @@
 
 {% block title %} | List {% endblock %}
 
-
 {% load static %}
 
 {% block content %}
@@ -26,7 +25,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% url 'index' %}">
+            <a href="{% url 'pages:index' %}">
               <i class="fas fa-home"></i> Home</a>
           </li>
           <li class="breadcrumb-item active"> Missing People </li>
@@ -74,7 +73,7 @@
                       <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}</div>
                   </div>
                   <hr>
-                  <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+                  <a href="{% url 'listings:detail' listing.id %}" class="btn btn-primary btn-block">More Info</a>
                 </div>
               </div>
             </div>

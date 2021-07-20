@@ -1,17 +1,17 @@
-import psycopg2
-import cv2
-import numpy as np
 import os
-from config import Config
 from collections import defaultdict
-from typing import Dict, List, Tuple, Any
+from typing import Any, Dict, List, Tuple
 
-
+import cv2
+import psycopg2
+from config import Config
 ############################################
 from detect_missing_people import FaceRecog
+
 ############################################
 
 PATH = '../media/'
+
 
 class VideoCheck:
     def __init__(self) -> None:
@@ -24,7 +24,7 @@ class VideoCheck:
 
             print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
-            
+
             cur = conn.cursor()
 
             print('PostgreSQL database version:')
@@ -110,7 +110,7 @@ def save_images(images: Dict[int, List[Tuple[Any, ...]]], missing_people_data: D
 
 if __name__ == '__main__':
     video_check = VideoCheck()
-    
+
     missing_people_data, missing_people_state = video_check.fetch_all_missing_people_data()
 
     missing_people_data[5] = ('Sam', '../media/photos/2021/04/18/sam.jpg', 3)

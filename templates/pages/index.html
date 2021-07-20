@@ -15,7 +15,7 @@
         </h1>
         <p class="lead">You can search by location, year and sex (This is just a project website)</p>
         <div class="search">
-          <form action="{% url 'search' %}">
+          <form action="{% url 'listings:search' %}">
             <div class="form-row">
               <div class="col-md-4 mb-3">
                 <label class="sr-only">City</label>
@@ -99,7 +99,7 @@
                     <i class="fas fa-clock"></i> {{ listing.list_date }}</div>
                 </div>
                 <hr>
-                <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+                <a href="{% url 'listings:detail' listing.id %}" class="btn btn-primary btn-block">More Info</a>
               </div>
             </div>
           </div>

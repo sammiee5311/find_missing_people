@@ -23,7 +23,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% url 'index' %}">
+            <a href="{% url 'pages:index' %}">
               <i class="fas fa-home"></i> Home</a>
           </li>
           <li class="breadcrumb-item active"> Dashboard</li>
@@ -58,7 +58,7 @@
                     <td>{{ request.name }}</td>
                     <td>{{ request.is_found }}</td>
                     <td>
-                      <a class="btn btn-light" href="{% url 'listing' request.id %}">View Person</a>
+                      <a class="btn btn-light" href="{% url 'listings:detail' request.id %}">View Person</a>
                     </td>
                     <td>
                       <button class="btn btn-light" data-toggle="modal" data-target="#images_{{request.id}}">View Images</button>
@@ -76,7 +76,7 @@
                                   {% for image, id in images|get_item:request.id %}
                                     <div class="form-group">
                                       <label class="col-form-label mySlides_{{ request.id }}"><img src="{{ image }}" alt="">
-                                      <form action="{% url 'check_image' %}" method="post">
+                                      <form action="{% url 'accounts:dashboard' %}" method="post">
                                         {% csrf_token %}
                                         <button class="btn btn-success btn-answer" name='correct' value='{{request.id}},{{id}}' type="submit">correct</button>
                                         <button class="btn btn-danger btn-answer" name='wrong' value='{{request.id}},{{id}}' type="submit">wrong</button>

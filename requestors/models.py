@@ -1,5 +1,7 @@
-from django.db import models
 from datetime import datetime
+
+from django.db import models
+
 
 class Requestor(models.Model):
     name = models.CharField(max_length=200)
@@ -11,4 +13,3 @@ class Requestor(models.Model):
 
     def __str__(self):
         return self.name
-

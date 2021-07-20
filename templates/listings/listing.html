@@ -25,10 +25,10 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'pages:index' %}">Home</a>
           </li>
           <li class="breadcrumb-item">
-            <a href="{% url 'listings' %}">Missing People</a>
+            <a href="{% url 'listings:listings_all' %}">Missing People</a>
           </li>
           <li class="breadcrumb-item active">{{ listing.name }}</li>
         </ol>
@@ -40,7 +40,7 @@
   <!-- Listing -->
   <section id="listing" class="py-4">
     <div class="container">
-      <a href="{% url 'listings' %}" class="btn btn-light mb-4">Back To See All Missing People</a>
+      <a href="{% url 'listings:listings_all' %}" class="btn btn-light mb-4">Back To See All Missing People</a>
       <div class="row">
         <div class="col-md-9">
           <!-- Home Main Image -->
@@ -104,7 +104,7 @@
         </div>
         <div class="modal-body">
           {% if user.is_authenticated %}
-            <form action="{% url 'contact' %}" method="POST">
+            <form action="{% url 'contacts:contact' %}" method="POST">
               {% csrf_token %}
               <input type="hidden" name="user_id" value="{{ user.id }}">
               <input type="hidden" name="requestor_email" value="{{ listing.user.email }}">

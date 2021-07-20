@@ -1,5 +1,7 @@
-from django.db import models
 from datetime import datetime
+
+from django.db import models
+
 
 class Contact(models.Model):
     missing_person_name = models.CharField(max_length=200)

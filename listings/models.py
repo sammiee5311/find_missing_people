@@ -1,6 +1,8 @@
-from django.db import models
 from datetime import datetime
+
 from django.conf import settings
+from django.db import models
+
 
 class Listing(models.Model):
     name = models.CharField(max_length=200)
@@ -43,4 +45,3 @@ class MissingPeople(models.Model):
 
     def __str__(self):
         return self.name
-

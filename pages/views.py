@@ -1,16 +1,16 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from listings.choices import sex_choices, state_choices, start_year_choices, end_year_choices
-from listings.choices import state_choices
-from django.contrib import messages, auth
-from django.core.serializers import serialize
 from datetime import datetime
 
+from django.contrib import auth, messages
+from django.contrib.auth.models import User
+from django.core.serializers import serialize
+from django.http import HttpResponse
+from django.shortcuts import render
+from geopy.geocoders import Nominatim
+
+from listings.choices import (end_year_choices, sex_choices,
+                              start_year_choices, state_choices)
 from listings.models import MissingPeople
 from requestors.models import Requestor
-from django.contrib.auth.models import User
-
-from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent="find_missing_people")
 

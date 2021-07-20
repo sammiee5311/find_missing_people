@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from pathlib import Path
-from django.contrib.messages import constants as messages
 import os
+from pathlib import Path
+
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,13 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'django-insecure-!0hvb^pu4p)*sv!_@e16z=@%3dk3fqt644vc2&r1$pc2sl)_n6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+LOGIN_REDIRECT_URL = '/accounts/dashboard'
+LOGIN_URL = '/accounts/login/'
 
 # Application definition
 
@@ -90,8 +92,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'findmissingpeople',
         'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': ''
+        'PASSWORD': 'root',
+        'HOST': 'localhost'
     }
 }
 
@@ -145,11 +147,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

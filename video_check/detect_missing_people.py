@@ -1,10 +1,11 @@
-import cv2
-import numpy as np
-import face_recognition
-from glob import glob
-from datetime import datetime
-from typing import List, Dict, Any, Tuple
 from collections import defaultdict
+from datetime import datetime
+from glob import glob
+from typing import Any, Dict, List, Tuple
+
+import cv2
+import face_recognition
+import numpy as np
 
 
 class FaceRecog:
@@ -32,7 +33,7 @@ class FaceRecog:
         print('Encoding Complete')
 
         return self.video_capture(encode_known, show)
-    
+
     def check_time_difference(self, current_time, previous_taken_time):
         if len(previous_taken_time) == 0:
             return True 
@@ -54,7 +55,6 @@ class FaceRecog:
             cur_encodings = face_recognition.face_encodings(resized_img, cur_locations)
 
             for encodings_face, location in zip(cur_encodings, cur_locations):
-                check = face_recognition.compare_faces(encode_known, encodings_face)
                 face_distance = face_recognition.face_distance(encode_known, encodings_face)
                 matched_idx = np.argmin(face_distance)
 

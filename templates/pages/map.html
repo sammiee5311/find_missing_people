@@ -22,7 +22,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="{% url 'index' %}">
+            <a href="{% url 'pages:index' %}">
               <i class="fas fa-home"></i> Home</a>
           </li>
           <li class="breadcrumb-item active"> Map</li>
@@ -62,7 +62,7 @@
     <h2 class="display-4">How To Help</h2>
     <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem velit aperiam, unde aliquid at similique!</h4>
     <hr>
-    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">View Missing People</a>
+    <a href="{% url 'listings:listings_all' %}" class="btn btn-secondary text-white btn-lg">View Missing People</a>
   </section>
 
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCosvd-S-qpiX5eZM95hPBswc7W2ZTl9c0&callback=initMap"></script>

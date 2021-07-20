@@ -1,62 +1,64 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages, auth
+from collections import defaultdict
+
+from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import redirect, render
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+
 from contacts.models import Contact
 from listings.models import MissingPeople
-from .models import ImagesFromVideo
 
-from collections import defaultdict
+from .forms import RegistrationForm
+from .models import ImagesFromVideo
+from .tokens import account_activation_token
+
 
 def register(request):
     if request.method == 'POST':
-        request_info = request.POST
-        first_name = request_info['first_name']
-        last_name = request_info['last_name']
-        username = request_info['username']
-        email = request_info['email']
-        password = request_info['password']
-        password_confirm = request_info['password_confirm']
-        if password == password_confirm:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists')
-                return redirect('register')
-            else:
-                if User.objects.filter(email=email).exists():
-                    messages.error(request, 'Email already exists')
-                    return redirect('register') 
-                else:
-                    user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name)
-                    user.save()
-                    # auth.login(request, user)
-                    messages.success(request, 'Register Successfully')
-                    return redirect('login')
-        else:
-            messages.error(request, 'Passwords do not macth')
-            return redirect('register')
-    return render(request, 'accounts/register.html')
+        regitseration_form = RegistrationForm(request.POST)
 
-def login(request):
-    if request.method == 'POST':
-        request_info = request.POST
-        username, password = request_info['username'], request_info['password']
+        if regitseration_form.is_valid():
+            user = regitseration_form.save(commit=False)
+            user.email = regitseration_form.cleaned_data['email']
+            user.set_password(regitseration_form.cleaned_data['password'])
+            user.is_active = False
+            user.save()
 
-        user = auth.authenticate(username=username, password=password)
+            current_site = get_current_site(request)
+            subject = 'Ativate Account'
+            message = render_to_string('accounts/email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user)})
+            user.email_user(subject=subject, message=message)
+            return redirect('pages:index')
+    else:
+        regitseration_form = RegistrationForm()
 
-        if user:
-            auth.login(request, user)
-            messages.success(request, 'Login Succeeded')
-            return redirect('index')
-        else:
-            messages.error(request, 'Login Failed')
-            return redirect('dash')
-    return render(request, 'accounts/login.html')
+    return render(request, 'accounts/register.html', {'form': regitseration_form})
 
-def logout(request):
-    if request.method == 'POST':
-        auth.logout(request)
-        messages.success(request, 'Logged Out Succeeded')
-    return redirect('index')
 
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except BaseException:
+        pass
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        auth.login(request, user)
+        return redirect('accounts:dashboard')
+    else:
+        return render(request, 'accounts/invalid.html')
+
+
+@login_required
 def dashboard(request):
     if request.method == 'POST':
         if 'correct' in request.POST:
@@ -75,7 +77,7 @@ def dashboard(request):
     user_requests = MissingPeople.objects.order_by('-list_date').filter(user_id=request.user.id, is_accepted=True)
     user_taken_images = ImagesFromVideo.objects.order_by('-date').filter(user_id=request.user.id)
     image_dictionary = defaultdict(list)
-    
+
     for image in user_taken_images:
         _id, missing_person_id, image_url = image.id, image.missing_person_id, image.photo.url
         image_dictionary[missing_person_id].append((image_url, _id))

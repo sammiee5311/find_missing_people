@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 from typing import Dict
 
+
 def Config(filename: str ='database.ini', section: str ='postgresql') -> Dict:
     parser = ConfigParser()
     parser.read(filename)

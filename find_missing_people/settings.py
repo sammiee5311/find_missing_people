@@ -75,7 +75,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries': {
-            'custom_tags':'find_missing_people.template_tags.custom_tags'
+                'custom_tags': 'find_missing_people.template_tags.custom_tags'
             }
         },
     },
@@ -93,7 +93,8 @@ DATABASES = {
         'NAME': 'findmissingpeople',
         'USER': 'postgres',
         'PASSWORD': 'root',
-        'HOST': 'localhost'
+        'HOST': 'localhost',  # or db
+        'PORT': 5432,
     }
 }
 
@@ -135,9 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '/')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'find_missing_people/static')
+    os.path.join(BASE_DIR, 'static/')
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,0 +1,134 @@
+.btn-secondary {
+  color: #fff !important; 
+}
+
+img {
+  width: 100%; 
+}
+
+.logo {
+  width: 80px; 
+}
+
+.navbar {
+  opacity: 0.9;
+  text-transform: uppercase; 
+}
+
+.social a {
+  margin-right: 0.4rem; 
+}
+
+#page {
+  background: #fff;
+  position: relative;
+  min-height: 650px;
+  color: #fff;
+  padding-top: 6rem; 
+}
+  #page .home-search {
+    min-height: 400px;
+    position: relative;
+    border-radius: 5px; 
+  }
+  #page .overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 400px;
+    width: 100%;
+    background: rgba(51, 51, 51, 0.8); 
+  }
+
+#services {
+  background: #fff;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden; 
+}
+  #services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    width: 100%;
+    background: rgba(32, 134, 107, 0.8); 
+  }
+
+#page-inner {
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px; 
+}
+  #page-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    width: 100%;
+    background: rgba(32, 134, 107, 0.8); 
+  }
+  #page-inner.page-search {
+    min-height: 270px; 
+  }
+
+#help {
+  padding: 6rem 0; 
+}
+
+.listing-preview a {
+  position: relative; 
+}
+
+@media (max-width: 991px) {
+  #page {
+    padding-top: 4rem; 
+  }
+    #page h1 {
+      font-size: 40px; 
+    }
+  .hide-md-down {
+    display: none; 
+  } 
+}
+
+@media (max-width: 768px) {
+  #page {
+    padding-top: 3rem; 
+  }
+    #page h1 {
+      font-size: 40px; 
+    }
+    #page p {
+      display: none; 
+    }
+  #top-bar {
+    text-align: center; 
+  }
+    #top-bar .social {
+      text-align: center !important; 
+    } 
+}
+
+@media (max-width: 576px) {
+  #page h1 {
+    font-size: 30px; 
+  }
+  #page-inner h1 {
+    font-size: 40px; 
+  } 
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+.btn-answer{
+  width:80px;
+  float: right;
+}

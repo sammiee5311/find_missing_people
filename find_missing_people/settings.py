@@ -35,12 +35,12 @@ LOGIN_URL = '/accounts/login/'
 # Application definition
 
 INSTALLED_APPS = [
-    'pages.apps.PagesConfig',
-    'listings.apps.MissingPeopleConfig',
-    'requestors.apps.RequestorsConfig',
-    'accounts.apps.AccountsConfig',
-    'videos.apps.VideosConfig',
-    'contacts.apps.ContactsConfig',
+    'pages',
+    'listings',
+    'requestors',
+    'accounts',
+    'videos',
+    'contacts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

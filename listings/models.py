@@ -13,8 +13,8 @@ class Listing(models.Model):
     age = models.IntegerField(blank=True)
     description = models.TextField(blank=True)
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
-    lat = models.DecimalField(max_digits=15, decimal_places=6,blank=True)
-    lng = models.DecimalField(max_digits=15, decimal_places=6,blank=True)
+    lat = models.DecimalField(max_digits=15, decimal_places=6, blank=True)
+    lng = models.DecimalField(max_digits=15, decimal_places=6, blank=True)
     is_private = models.BooleanField(default=False)
     is_found = models.BooleanField(default=False)
     missing_date = models.DateTimeField(default=datetime.now, blank=True)
@@ -25,7 +25,8 @@ class Listing(models.Model):
     def __str__(self):
         return self.name
 
-class MissingPeople(models.Model):
+
+class MissingPerson(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=100)
@@ -34,14 +35,17 @@ class MissingPeople(models.Model):
     age = models.IntegerField(blank=True)
     description = models.TextField(blank=True)
     photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
-    lat = models.DecimalField(max_digits=15, decimal_places=6,blank=True)
-    lng = models.DecimalField(max_digits=15, decimal_places=6,blank=True)
+    lat = models.DecimalField(max_digits=15, decimal_places=6, blank=True)
+    lng = models.DecimalField(max_digits=15, decimal_places=6, blank=True)
     is_private = models.BooleanField(default=False)
     is_found = models.BooleanField(default=False)
     missing_date = models.DateTimeField(default=datetime.now, blank=True)
     list_date = models.DateTimeField(default=datetime.now, blank=True)
     is_accepted = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = 'MissingPeople'
 
     def __str__(self):
         return self.name

@@ -1,14 +1,14 @@
 from datetime import datetime
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 
-from listings.models import Listing
+from listings.models import MissingPerson
 
 
 class Contact(models.Model):
     missing_person_name = models.CharField(max_length=200)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+    listing = models.ForeignKey(MissingPerson, on_delete=models.CASCADE)
     from_name = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, blank=True)

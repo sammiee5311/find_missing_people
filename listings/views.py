@@ -1,15 +1,17 @@
 import datetime
 
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+import pytz
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 
 from .choices import (end_year_choices, sex_choices, start_year_choices,
                       state_choices)
-from .models import MissingPeople
+from .models import MissingPerson
 
 
 def listings_all(request):
-    listings = MissingPeople.objects.order_by('-list_date').filter(is_private=False, is_found=False, is_accepted=True)
+    listings = MissingPerson.objects.order_by('-list_date').filter(is_private=False, is_found=False, is_accepted=True)
 
     paginator = Paginator(listings, 3)
     page = request.GET.get('page')
@@ -21,18 +23,22 @@ def listings_all(request):
 
     return render(request, 'listings/listings.html', context)
 
+
 def detail(request, listing_id):
-    listing = get_object_or_404(MissingPeople, pk=listing_id)
+    listing = get_object_or_404(MissingPerson, pk=listing_id)
     context = {
         'listing': listing
     }
 
     return render(request, 'listings/listing.html', context)
 
+
 def search(request):
-    query_list = MissingPeople.objects.order_by('-list_date').filter(is_accepted=True)
-    start_year = datetime.date(int(2000), 1, 1)
-    end_year = datetime.datetime.now()
+    query_list = MissingPerson.objects.order_by('-list_date').filter(is_accepted=True)
+    start_year_tz = pytz.timezone('UTC') 
+    start_year = start_year_tz.localize(datetime.datetime(2000, 1, 1, 0, 0))
+    end_year_tz = pytz.timezone('UTC')
+    end_year = timezone.now()
 
     if 'city' in request.GET:
         city = request.GET['city']
@@ -48,19 +54,18 @@ def search(request):
         sex = request.GET['sex']
         if sex:
             query_list = query_list.filter(sex__iexact=sex)
-    
+
     if 'start_year' in request.GET:
         start_year = request.GET['start_year']
         if start_year:
-            start_year = datetime.date(int(start_year), 1, 1)        
+            start_year = start_year_tz.localize(datetime.datetime(int(start_year), 1, 1, 0, 0))
 
     if 'end_year' in request.GET:
         end_year = request.GET['end_year']
-        print(end_year)
         if end_year:
-            end_year = datetime.date(int(end_year), 12, 31)
+            end_year = end_year_tz.localize(datetime.datetime(int(end_year), 12, 31, 23, 59))
 
-    query_list = query_list.filter(list_date__range=(start_year, end_year))       
+    query_list = query_list.filter(list_date__range=(start_year, end_year))
     context = {
         'state_choices': state_choices,
         'sex_choices': sex_choices,

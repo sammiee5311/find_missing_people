@@ -1,7 +1,7 @@
-from django.db import models
-from listings.models import MissingPerson
-
 from django.conf import settings
+from django.db import models
+
+from listings.models import MissingPerson
 
 
 class ImagesFromVideo(models.Model):

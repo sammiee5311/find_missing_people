@@ -18,11 +18,12 @@ def contact(request):
         date = request_info['date']
 
         has_contacted = Contact.objects.all().filter(listing_id=listing_id, user_id=user_id)
-        
+
         if has_contacted:
             messages.error(request, 'You have already sent information')
         else:
-            contact = Contact(missing_person_name=missing_person_name, listing_id=listing_id, from_name=name, email=requestor_email, phone=phone, message=message, last_seen=date, user_id=user_id)
+            contact = Contact(missing_person_name=missing_person_name, listing_id=listing_id, from_name=name,
+                              email=requestor_email, phone=phone, message=message, last_seen=date, user_id=user_id)
             contact.save()
             # send_mail(
             #     'Find Missing People',
@@ -34,4 +35,4 @@ def contact(request):
 
             messages.success(request, 'Success to send information.')
 
-        return redirect('/listings/'+listing_id)
+        return redirect('/listings/' + listing_id)

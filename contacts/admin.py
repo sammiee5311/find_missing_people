@@ -9,4 +9,5 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ('from_name', 'email', 'missing_person_name')
     list_per_page = 25
 
+
 admin.site.register(Contact, ContactAdmin)

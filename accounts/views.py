@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 from contacts.models import Contact
-from listings.models import MissingPeople
+from listings.models import MissingPerson
 
 from .forms import RegistrationForm
 from .models import ImagesFromVideo
@@ -63,7 +63,7 @@ def dashboard(request):
     if request.method == 'POST':
         if 'correct' in request.POST:
             missing_person_id, image_id = request.POST['correct'].split(',')
-            request_info = MissingPeople.objects.get(id=missing_person_id)
+            request_info = MissingPerson.objects.get(id=missing_person_id)
             request_info.is_found = True
             request_info.save()
 
@@ -74,7 +74,7 @@ def dashboard(request):
         filtered_image.delete()
 
     user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)
-    user_requests = MissingPeople.objects.order_by('-list_date').filter(user_id=request.user.id, is_accepted=True)
+    user_requests = MissingPerson.objects.order_by('-list_date').filter(user_id=request.user.id, is_accepted=True)
     user_taken_images = ImagesFromVideo.objects.order_by('-date').filter(user_id=request.user.id)
     image_dictionary = defaultdict(list)
 

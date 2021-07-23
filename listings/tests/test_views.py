@@ -6,7 +6,7 @@ from django.utils import timezone
 from listings.models import MissingPerson
 
 
-class TestListingsView(TestCase):
+class TestListingsViews(TestCase):
     def setUp(self):
         self.client = Client()
         self.time = timezone.now()

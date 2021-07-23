@@ -7,8 +7,7 @@ from listings.models import MissingPerson
 
 
 class Contact(models.Model):
-    missing_person_name = models.CharField(max_length=200)
-    listing = models.ForeignKey(MissingPerson, on_delete=models.CASCADE)
+    missing_person = models.ForeignKey(MissingPerson, on_delete=models.CASCADE)
     from_name = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100, blank=True)

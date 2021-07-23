@@ -5,7 +5,7 @@ from django.utils import timezone
 from requestors.models import Requestor
 
 
-class TestRequestorModel(TestCase):
+class TestRequestorModels(TestCase):
     def setUp(self):
         self.user = User.objects.create(id=0, username='test', password='test', email='test@test.com')
         self.requestor = Requestor.objects.create(name='test', phone='123456', email='test@test.com', 

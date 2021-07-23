@@ -12,10 +12,11 @@ class TestPagesViews(TestCase):
         self.client = Client()
         self.time = timezone.now()
         self.user = User.objects.create(id=0, username='test', password='test', email='test@test.comm')
-        self.requestor = Requestor.objects.create(name='test', photo='test', user=self.user)
         self.missing_person = MissingPerson.objects.create(id=0, name='test', state='CA', sex='M', age=20, lat=20, list_date=self.time,
                                                            missing_date=self.time, photo_main='test', lng=20, is_accepted=True,
                                                            user=self.user)
+        Requestor.objects.create(name='test', photo='test', user=self.user)
+
     def test_index_page(self):
         response = self.client.get(reverse('pages:index'))
         self.assertEqual(response.status_code, 200)

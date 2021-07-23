@@ -5,7 +5,7 @@ from django.utils import timezone
 from listings.models import MissingPerson
 
 
-class TestMissingPersonModel(TestCase):
+class TestMissingPersonModels(TestCase):
     def setUp(self):
         self.time = timezone.now()
         self.user = User.objects.create(id=0, username='test', password='test', email='test@test.comm')

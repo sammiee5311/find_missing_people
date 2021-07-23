@@ -13,7 +13,7 @@ from contacts.models import Contact
 from listings.models import MissingPerson
 
 from .forms import RegistrationForm
-from .models import ImagesFromVideo
+from videos.models import ImagesFromVideo
 from .tokens import account_activation_token
 
 
@@ -70,7 +70,7 @@ def dashboard(request):
         elif 'wrong' in request.POST:
             missing_person_id, image_id = request.POST['wrong'].split(',')
 
-        filtered_image = ImagesFromVideo.objects.order_by('-date').filter(user_id=request.user.id, missing_person_id=missing_person_id).get(id=image_id)
+        filtered_image = ImagesFromVideo.objects.order_by('-date').filter(user=request.user.id, missing_person=missing_person_id).get(id=image_id)
         filtered_image.delete()
 
     user_contacts = Contact.objects.order_by('-contact_date').filter(user_id=request.user.id)

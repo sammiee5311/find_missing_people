@@ -48,7 +48,7 @@ def activate(request, uidb64, token):
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except BaseException:
-        pass
+        return render(request, 'accounts/invalid.html')
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()

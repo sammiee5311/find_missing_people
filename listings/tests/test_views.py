@@ -17,20 +17,20 @@ class TestListingsViews(TestCase):
     
     def test_listings_all_page(self):
         response = self.client.get(reverse('listings:listings_all'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['listings'][0].name, 'test')
 
     def test_listings_detail_page(self):
         response = self.client.get(reverse('listings:detail', args=[0]))
-        self.assertEqual(response.status_code, 200)
+        
+        self.assertEqual(response.context['listing'].name, 'test')
 
-    def test_listings_search_page(self):
+    def test_listings_search_page_is_in(self):
         response = self.client.get(
             reverse('listings:search'), {
-                'city': 'test',
-                'state': 'test',
-                'sex': 'test',
+                'state': 'CA',
+                'sex': 'M',
                 'start_year': 2000,
-                'end_year': 2010
+                'end_year': 2022
             }
         )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['listings'][0].name, 'test')

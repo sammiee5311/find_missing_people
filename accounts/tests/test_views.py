@@ -44,10 +44,8 @@ class TestAccountViews(TestCase):
         self.assertEqual(response_email2.status_code, 200)
     
     def test_activate_page_invalid(self):
-        try:
-            self.client.get(reverse('accounts:activate', args=['test', 'test']))
-        except:
-            pass
+        response = self.client.get(reverse('accounts:activate', args=['test', 'test']))
+        self.assertEqual(response.status_code, 200)
 
     def test_register_page_fail(self):
         client = self.client
@@ -58,8 +56,21 @@ class TestAccountViews(TestCase):
     def test_dashboard_page(self):
         client = self.client
         client.force_login(self.user)
+        response = client.get(reverse('accounts:dashboard'))
+        self.assertTupleEqual(response.context['images'][0][0], ('/media/test', 0))
+
+    def test_dashboard_page_correct(self):
+        client = self.client
+        client.force_login(self.user)
         response = client.post(reverse('accounts:dashboard'), {
             'correct': '0,0',
         })
-        self.assertIsInstance(response.context['images'], defaultdict)
+        self.assertDictEqual(response.context['images'], {})
 
+    def test_dashboard_page_wrong(self):
+        client = self.client
+        client.force_login(self.user)
+        response = client.post(reverse('accounts:dashboard'), {
+            'wrong': '0,0',
+        })
+        self.assertDictEqual(response.context['images'], {})

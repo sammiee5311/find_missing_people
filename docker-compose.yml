@@ -16,7 +16,7 @@ services:
 
     django:
         container_name: django
-        build: ./univerchain
+        build: ./find_missing_people
         image: docker-server/django
         restart: always
         command: uwsgi --ini uwsgi.ini
@@ -27,11 +27,13 @@ services:
           - db
 
     db:
-      container_name: db
-      image: docker-server/db
-      restart: always
-      environment:
-        - POSTGRES_DB=findmissingpeople
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=root
-        
+         container_name: db
+         build: ./postgresql
+         image: docker-server/db
+         restart: always
+         volumes:
+           - ./postgresql/data:/var/lib/postgresql/data
+         ports:
+           - 5432:5432
+         env_file:
+           - .env

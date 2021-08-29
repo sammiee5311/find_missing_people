@@ -4,10 +4,10 @@ from typing import Any, Dict, List, Tuple
 
 import cv2
 import psycopg2
-from config import Config
+from config import config
+
 ############################################
 from detect_missing_people import FaceRecog
-
 ############################################
 
 PATH = '../media/'
@@ -20,7 +20,7 @@ class VideoCheck:
     def connect(self) -> object:
         conn = None
         try:
-            params = Config()
+            params = config()
 
             print('Connecting to the PostgreSQL database...')
             conn = psycopg2.connect(**params)
@@ -112,9 +112,6 @@ if __name__ == '__main__':
     video_check = VideoCheck()
 
     missing_people_data, missing_people_state = video_check.fetch_all_missing_people_data()
-
-    missing_people_data[5] = ('Sam', '../media/photos/2021/04/18/sam.jpg', 3)
-    missing_people_state[5] = False
     face = FaceRecog(missing_people_state)
 
     missing_people_images_from_videos = face.start_face_recog(missing_people_data, show=False)

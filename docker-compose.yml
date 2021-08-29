@@ -9,7 +9,7 @@ services:
         ports:
           - "80:80"
         volumes:
-          - ./:/srv/docker-server
+          - ./find_missing_people:/srv/docker-server
           - ./log:/var/log/nginx
         depends_on:
           - django
@@ -21,19 +21,21 @@ services:
         restart: always
         command: uwsgi --ini uwsgi.ini
         volumes:
-          - ./:/srv/docker-server
+          - ./find_missing_people:/srv/docker-server
           - ./log:/var/log/uwsgi
         depends_on:
           - db
-
+          
     db:
-         container_name: db
-         build: ./postgresql
-         image: docker-server/db
-         restart: always
-         volumes:
-           - ./postgresql/data:/var/lib/postgresql/data
-         ports:
-           - 5432:5432
-         env_file:
-           - .env
+        container_name: db
+        build: ./postgresql
+        image: docker-server/db
+        restart: always
+        volumes:
+          - ./postgresql/data:/var/lib/postgresql/data
+        ports:
+          - 5432:5432
+        environment:
+          POSTGRES_DB: ${POSTGRES_DB}
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
